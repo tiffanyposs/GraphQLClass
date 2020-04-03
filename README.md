@@ -1,5 +1,43 @@
 # GraphQL
 
+## Project Startup
+
+### Mock Database
+
+```
+$ npm run json:server
+
+```
+
+You can access the root at `localhost:3000`.
+
+You can go to these routes to see the data from the `db.json` file
+
+JSON Server Project Homepage:
+
+(http://localhost:3000/)[http://localhost:3000/]
+
+Users data (which we created in `db.json`)
+
+(http://localhost:3000/users)[http://localhost:3000/users]
+
+Specific Users data (which we created in `db.json`)
+
+(http://localhost:3000/users/23)[http://localhost:3000/users/23]
+
+### Regular Server
+
+In a separate terminal window
+
+```
+$ npm run dev
+
+```
+
+Get GraphQL interface:
+
+(http://localhost:4000/graphql)[http://localhost:4000/graphql]
+
 ## What does GraphQL solve?
 
 GraphQL solves for an issue caused in applications that have a lot of relational data. Endpoints become elaborate and hard to manage, GraphQL allows you to query exactly what you want using a `graph` structure.

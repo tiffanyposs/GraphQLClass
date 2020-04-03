@@ -1,5 +1,6 @@
 const graphql = require('graphql');
-const _ = require('lodash');
+const axios = require('axios');
+
 const {
   GraphQLObjectType,
   GraphQLString,
@@ -7,11 +8,7 @@ const {
   GraphQLSchema,
 } = graphql;
 
-// temp database
-const users = [
-  { id: '23', firstName: 'Bill', age: 20 },
-  { id: '47', firstName: 'Samantha', age: 21 },
-];
+const API_ROOT = 'http://localhost:3000';
 
 // what a user object looks like
 const UserType = new GraphQLObjectType({
@@ -52,8 +49,10 @@ const RootQuery = new GraphQLObjectType({
         }
       },
       resolve(parentValue, args) {
-        // using lodash to look up in the faker database
-        return _.find(users, { id: args.id });
+        // ping the endpoint to get the data
+        return axios
+          .get(`${API_ROOT}/users/${args.id}`)
+          .then(res => res.data);
       }
     },
   },
