@@ -116,3 +116,17 @@ query {
 }
 
 ```
+
+## How to use it
+
+Query example
+
+```
+{
+  user(id: "23") {
+    id,
+    firstName,
+    age,
+  }
+}
+```
