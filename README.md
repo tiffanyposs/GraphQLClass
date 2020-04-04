@@ -25,6 +25,10 @@ Specific Users data (which we created in `db.json`)
 
 (http://localhost:3000/users/23)[http://localhost:3000/users/23]
 
+Company 2's users
+
+(http://localhost:3000/companies/2/users)[http://localhost:3000/companies/2/users]
+
 ### Regular Server
 
 In a separate terminal window
