@@ -256,7 +256,6 @@ mutation {
 
 ```
 
-
 #### Deleting
 
 ```
@@ -267,3 +266,9 @@ mutation {
 }
 
 ```
+
+## Browser Clients
+
+* Lokka - simple as possible. Basic queries, mutations. Some simple caching.
+* Apollo Client - Good Balance between features and complexity.
+* Relay - Amazing performance for mobile. By far the most insanely complex.
