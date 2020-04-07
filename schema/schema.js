@@ -5,25 +5,35 @@ const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLInt,
+  GraphQLList,
   GraphQLSchema,
 } = graphql;
 
 const API_ROOT = 'http://localhost:3000';
 
 // what a company object looks like
+
 const CompanyType = new GraphQLObjectType({
   name: 'Company',
-  fields: {
+  fields: () => ({ // create a closure to have access to UserType before it's defined
     id: { type: GraphQLString },
     name: { type: GraphQLString },
     descriptions: { type: GraphQLString },
-  }
+    users: {
+      type: new GraphQLList(UserType), // tells GraphQL that this is a list of users
+      resolve(parentValue, args) {
+        return axios
+          .get(`${API_ROOT}/companies/${parentValue.id}/users`)
+          .then(res => res.data);
+      }
+    },
+  }),
 });
 
 // what a user object looks like
 const UserType = new GraphQLObjectType({
   name: 'User', // usually the type, by convention capital
-  fields: { // every single users will have these properties
+  fields: () => ({ // every single users will have these properties
     id: { type: GraphQLString }, // what type of data is it?
     firstName: { type: GraphQLString },
     age: { type: GraphQLInt },
@@ -34,9 +44,9 @@ const UserType = new GraphQLObjectType({
         return axios
           .get(`${API_ROOT}/companies/${parentValue.companyId}`)
           .then(res => res.data);
-      }
-    }
-  }
+      },
+    },
+  }),
 });
 
 // "Root Query" - in order for GraphQL to

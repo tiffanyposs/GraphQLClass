@@ -161,7 +161,9 @@ query {
 
 ## How to use it
 
-Query example
+Query example (both are the same)
+
+Nameless
 
 ```
 {
@@ -171,4 +173,66 @@ Query example
     age,
   }
 }
+```
+
+Write query in front of the object (same as nameless)
+
+```
+query {
+  user(id: "23") {
+    id,
+    firstName,
+    age,
+  }
+}
+```
+
+Named Query
+
+```
+query findUser {
+  user(id: "23") {
+    id,
+    firstName,
+    age,
+  }
+}
+```
+
+If you want to query multiple ids at once, you must name the results (user1 and user2 here).
+
+```
+{
+  user1: user(id: "23") {
+    id
+    firstName
+    age
+  }
+  user2: user(id: "40") {
+    id
+    firstName
+    age
+  }
+}
+
+```
+
+To write dryer code you can extract properties into a named fragment (same as above)
+
+```
+{
+  user1: user(id: "23") {
+    ...userDetails
+  }
+  user2: user(id: "40") {
+    ...userDetails
+  }
+}
+
+fragment userDetails on User {
+  id
+  firstName
+  age
+}
+
 ```
