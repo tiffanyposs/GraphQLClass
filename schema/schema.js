@@ -131,8 +131,25 @@ const mutation = new GraphQLObjectType({
           .delete(`${API_ROOT}/users/${id}`)
           .then(res => res.data);
       }
-    }
+    },
     // END DELETE USER
+
+    // EDII USER
+    editUser: {
+      type: UserType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLString) },
+        firstName: { type: GraphQLString },
+        age: { type: GraphQLInt },
+        companyId: { type: GraphQLInt },
+      },
+      resolve(parentValue, args) {
+        return axios
+          .patch(`${API_ROOT}/users/${args.id}`, args)
+          .then(res => res.data);
+      }
+    }
+    // END EDII USER
   }
 });
 // END MUTATIONS
