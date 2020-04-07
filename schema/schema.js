@@ -7,12 +7,12 @@ const {
   GraphQLInt,
   GraphQLList,
   GraphQLSchema,
+  GraphQLNonNull,
 } = graphql;
 
 const API_ROOT = 'http://localhost:3000';
 
 // what a company object looks like
-
 const CompanyType = new GraphQLObjectType({
   name: 'Company',
   fields: () => ({ // create a closure to have access to UserType before it's defined
@@ -98,6 +98,46 @@ const RootQuery = new GraphQLObjectType({
   },
 });
 
+// MUTATIONS - Add, update, delete
+const mutation = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: {
+    // ADD USER
+    addUser: {
+      type: UserType, // refers to the type of data returned from the resolved function
+      args: {
+        firstName: { type: new GraphQLNonNull(GraphQLString) }, // must provide name
+        age: { type: new GraphQLNonNull(GraphQLInt) }, // must provide age
+        companyId: { type: GraphQLString },
+      },
+      resolve(parentValue, { firstName, age }) {
+        return axios
+          .post(`${API_ROOT}/users`, {
+            firstName,
+            age
+          })
+          .then(res => res.data);
+      }
+    },
+    // END ADD USER
+    // DELETE USER
+    deleteUser: {
+      type: UserType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLString) }
+      },
+      resolve(parentValue, { id }) {
+        return axios
+          .delete(`${API_ROOT}/users/${id}`)
+          .then(res => res.data);
+      }
+    }
+    // END DELETE USER
+  }
+});
+// END MUTATIONS
+
 module.exports = new GraphQLSchema({
   query: RootQuery,
+  mutation,
 });

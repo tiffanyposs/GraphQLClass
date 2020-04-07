@@ -161,6 +161,8 @@ query {
 
 ## How to use it
 
+### Read Examples
+
 Query example (both are the same)
 
 Nameless
@@ -233,6 +235,35 @@ fragment userDetails on User {
   id
   firstName
   age
+}
+
+```
+
+### Write Examples
+
+Below would be the syntax to create a mutation.
+
+#### Adding
+
+```
+mutation {
+  addUser(firstName: "Tiffany", age: 31) {
+    id
+    firstName
+    age
+  }
+}
+
+```
+
+
+#### Deleting
+
+```
+mutation {
+  deleteUser(id: "31") {
+    firstName
+  }
 }
 
 ```
